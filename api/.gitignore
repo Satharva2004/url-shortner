@@ -1,0 +1,24 @@
+# Environment variables (secrets!)
+.env
+*.env
+
+# Compiled Go binary
+main
+*.exe
+*.out
+
+# Go test cache & coverage
+*.test
+*.prof
+coverage.out
+
+# Air (live reload) temp dir
+tmp/
+
+# macOS junk
+.DS_Store
+
+# IDE / editor folders
+.idea/
+.vscode/
+*.swp

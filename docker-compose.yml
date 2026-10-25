@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: DockerFile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./api/.env
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    build:
+      context: ./db
+      dockerfile: DockerFile
+    ports:
+      - "6379:6379"
+    restart: unless-stopped

@@ -1,0 +1,4 @@
+FORM redis:alpine
+
+EXPOSE 6379
+
