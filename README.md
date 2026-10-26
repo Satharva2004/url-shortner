@@ -7,3 +7,5 @@
 - [ ] Custom URL
 - [ ] Login / Signup
 - [ ] Frontend
+
+~ps learning go
