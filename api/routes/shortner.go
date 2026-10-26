@@ -1,8 +1,10 @@
 package routes
 
 import (
+	"go-url-shortner/helpers"
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -28,7 +30,23 @@ func ShortenURL(c *fiber.Ctx) error {
 		})
 	}
 
-	// TODO: validate URL, generate short code, store in DB
+	//checking if the input is an actul url
+	if !govalidator.IsURL(body.URL) {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid URL",
+		})
+	}
+
+	//check for domain error
+	if !helpers.RemoveDomainError(body.URL) {
+		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{
+			"error": "Invalid URL",
+		})
+	}
+
+	//enforce ssl, hhtps
+	body.URL = helpers.EnforceHTTPS(body.URL)
+
 	return c.Status(fiber.StatusNotImplemented).JSON(fiber.Map{
 		"error": "not implemented yet",
 	})
