@@ -18,7 +18,15 @@ func ResolveURL(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 			"error": "url not found",
 		})
+	} else if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "internal server error",
+		})
 	}
+	rInr := db.CreateClient(1)
+	defer rInr.Close()
+
+	rInr.Incr(c.Context(), "clicks_"+url)
 
 	return c.Redirect(value, fiber.StatusSeeOther)
 }
